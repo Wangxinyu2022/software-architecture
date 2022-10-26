@@ -1,0 +1,35 @@
+(1) 建立addAction类继承ActionSupport类，主要是同于添加用户，主要代码如下：public String execute() throws ExceptionHttpServletRequest request = ServletActionContext.getRequest(); /markHttpSession session = request.getSession();userfriend = new UserFriend();userfriendid = new UserFriendId();userfrienddaoimp = n。
+
+30、ew UserFriendDaoImp();name = request.getParameter(name);address = request.getParameter(address);phone = request.getParameter(phone);user = (User)session.getAttribute(user);/account and passworduserfriendid.setUser(user.getUsername();/account_nameuserfriend.setId(userfriendid);/id auto-increaseuserfr。
+
+31、iend.setName(name);userfriend.setAddress(address);userfriend.setPhone(phone);if(userfrienddaoimp.insert(userfriend)ArrayList al = userfrienddaoimp.getAll(user.getUsername();session.setAttribute(al, al);return success;elsereturn error;(2)建立deleteAction类继承ActionSupport类用于删除用户，代码如下：public class deleteA。
+
+32、ction extends ActionSupportprivate UserFriend userfriend;private String user;private int id;private UserFriendId userfriendid;private UserFriendDaoImp userfrienddaoimp;public String execute() throws Exceptionuserfriend = new UserFriend();userfriendid = new UserFriendId();userfrienddaoimp = new UserF。
+
+33、riendDaoImp();HttpServletRequest request = ServletActionContext.getRequest(); /markHttpSession session = request.getSession();/markuser = request.getParameter(username);System.out.println(request.getParameter(id);id = Integer.parseInt(request.getParameter(id);userfriendid.setUser(user);userfriendid.。
+
+34、setId(id);userfriend.setId(userfriendid);if(userfrienddaoimp.delete(userfriend)ArrayList al = userfrienddaoimp.getAll(user);session.setAttribute(al, al);return success;elsereturn error;(3)建立editAction类继承ActionSupport类，用于编辑用户，代码如下：public class editAction extends ActionSupportprivate String user ;priv。
+
+35、ate int id;private String name;private String address;private String phone;private UserFriend userfriend;private UserFriendId userfriendid;private UserFriendDaoImp userfrienddaoimp;public String execute() throws ExceptionHttpServletRequest request = ServletActionContext.getRequest();HttpSession sess。
+
+36、ion = request.getSession();userfriendid = new UserFriendId();userfriend = new UserFriend();userfrienddaoimp = new UserFriendDaoImp();System.out.println(request.getParameter(username); /nullSystem.out.println(request.getParameter(id);/nulluser = request.getParameter(username);id = Integer.parseInt(re。
+
+37、quest.getParameter(id);name = request.getParameter(name);address = request.getParameter(address);phone = request.getParameter(phone);userfriendid.setId(id);userfriendid.setUser(user);userfriend.setId(userfriendid);userfriend.setName(name);userfriend.setAddress(address);userfriend.setPhone(phone);if(。
+
+38、userfrienddaoimp.update(userfriend)ArrayList al = userfrienddaoimp.getAll(user);session.setAttribute(al, al);return success;elsereturn error;(4)建立org.model包，在包中创建User、UserFriend和UserFriendId类，创建User.hbm.xml和UserFriend.hbm.xml文档。public class User implements java.io.Serializable private String usernam。
+
+39、e;private String password;public User() public User(String username) this.username = username;public User(String username, String password) this.username = username;this.password = password;public String getUsername() return this.username;public void setUsername(String username) this.username = user。
+
+40、name;public String getPassword() return this.password;public void setPassword(String password) this.password = password;public class UserFriend implements java.io.Serializable private UserFriendId id;private String name;private String address;private String phone;public UserFriend() public UserFrien。
+
+41、d(UserFriendId id) this.id = id;public UserFriend(UserFriendId id, String name, String address, String phone) this.id = id;this.name = name;this.address = address;this.phone = phone;public UserFriendId getId() return this.id;public void setId(UserFriendId id) this.id = id;public String getName() ret。
+
+42、urn this.name;public void setName(String name) this.name = name;public String getAddress() return this.address;public void setAddress(String address) this.address = address;public String getPhone() return this.phone;public void setPhone(String phone) this.phone = phone;public class UserFriendId impl。
+
+43、ements java.io.Serializable private Integer id;private String user;public UserFriendId() public UserFriendId(Integer id, String user) this.id = id;this.user = user;public Integer getId() return this.id;public void setId(Integer id) this.id = id;public String getUser() return this.user;public void se。
+
+44、tUser(String user) this.user = user;public boolean equals(Object other) if (this = other)return true;if (other = null)return false;if (!(other instanceof UserFriendId)return false;UserFriendId castOther = (UserFriendId) other;return (this.getId() = castOther.getId() | (this.getId() != null& castOthe。
+
+45、r.getId() != null & this.getId().equals(castOther.getId()& (this.getUser() = castOther.getUser() | (this.getUser() != null& castOther.getUser() != null & this.getUser().equals(castOther.getUser();public int hashCode() int result = 17;result = 37 * result + (getId() = null ? 0 : this.getId().hashCode。
+
+46、();result = 37 * result+ (getUser() = null ? 0 : this.getUser().hashCode();return result;(5)User.hbm.xml，用于数据库中的表User和定义的属性相对应，代码如下：(6)UserFriend.hbm.xml用于数据库中的表UserFriend和定义的属性相对应，代码如下

@@ -1,0 +1,226 @@
+(1)建立addAction类继承ActionSupport类，主要是同于添加用户，主要
+代码如下:
+
+public String execute(throws Exception{
+HttpServletRequest request = ServletActionContexetRequest(); //markHttpSession session = request.getSession();
+userfriend =new UserFriend();
+userfriendid =new UserFriendld();
+userfrienddaoimp =new UserFriendDaolmp();
+name =request.getParameter("name");
+address = request.getParameter("address");phone = request.getParameter("phone");user = (User)session.getAttribute("user");
+//account and password
+userfriendid.setUser(user.getUsername());//account_name
+userfriend.setld(userfriendid);
+//id auto-increase
+userfriend.setName(name);
+userfriend.setAddress(address);userfriend.setPhone(phone);
+if(userfrienddaoimp.insert(userfriend)){
+ArrayList al = userfrienddaoimp.getAll(user.getUsername());
+session.setAttribute("al"，al);
+return "success";
+}
+else{
+return "error";
+}
+}
+}
+
+(⑵)建立deleteAction类用于删除用户，代码如下:
+
+
+public class deleteAction extends ActionSupport{
+private UserFriend userfriend;
+private String user;
+private int id;
+private UserFriendld userfriendid;
+private UserFriendDaolmp userfrienddaoimp;
+public String execute() throws Exception{
+userfriend = new UserFriend();userfriendid = new UserFriendld();
+userfrienddaoimp = new UserFriendDaolmp();
+HttpServletRequest request = ServletActionContext.getRequest(); //markHttpSession session = request.getSession();//mark
+user =request.getParameter("username");
+System.out.printIn(request.getParameter("id"));
+id = lnteger.parselnt(request.getParameter("id"));
+userfriendid.setUser(user);
+userfriendid.setld(id);
+userfriend.setld(userfriendid);
+if(userfrienddaoimp.delete(userfriend)){
+ArrayList al = userfrienddaoimp.getAll(user);
+session.setAttribute("al", al);
+return "success";
+}
+else{
+
+return "error";
+}
+}
+}
+
+
+
+(3)建立.editAction类，用于编辑用户，代码如下:
+public class editAction extends ActionSupport{
+private String user ;
+private int id;
+private String name;private String address;private String phone;
+private UserFriend userfriend;
+private UserFriendld userfriendid;
+private UserFriendDaolmp userfrienddaoimp;public String execute() throws Exception{
+HttpServletRequest request = ServletActionContext.getRequest();HttpSession session = request.getSession();
+userfriendid = new UserFriendld();
+userfriend = new UserFriend();
+userfrienddaoimp = new UserFriendDaolmp();
+System.out.printIn(request.getParameter("username"));
+//null
+System.out.printIn(request.getParameter("id"));
+//null
+user = request.getParameter("username");
+id = lnteger.parselnt(request.getParameter("id"));
+name = request.getParameter("name");
+address = request.getParameter( "address");phone = request.getParameter("phone");
+userfriendid.setld(id);userfriendid.setUser(user);userfriend.setld(userfriendid);userfriend.setName(name);userfriend.setAddress(address);userfriend.setPhone(phone);
+if(userfrienddaoimp.update(userfriend)){
+ArrayList al = userfrienddaoimp.getAll(user);session.setAttribute("al", al);
+return "success";
+}
+else{
+return "error";
+}
+}
+}
+(4)建立org.model包，在包中创建User、UserFriend和UserFriendld类，创建User.hbm.xml和UserFriend.hbm.xml文档。
+public class User implements java.io.Serializable {
+private String username;
+private String password;public User() {
+}
+public User(String username) {
+this.username = username;
+}
+public User(String username,String password) {
+this.username = username;
+this.password = password;
+}
+public String getUsername() {
+return this.username;
+}
+public void setUsername(String username){
+this.username = username;
+}
+public String getPassword() {
+return this.password;
+}
+public void setPassword(String password) {
+this.password = password;
+}
+}
+public class UserFriend implements java.io.Serializable {
+public class UserFriend implements java.io.Serializable {
+private UserFriendld id;
+private String name;private String address;private String phone;public UserFriend(){)
+public UserFriend(UserFriendld id) {
+this.id = id;
+}
+public UserFriend(UserFriendld id,String name,String address，String phone){
+this.id = id;
+this.name = name;this.address = address;
+this.phone = phone;
+}
+public UserFriendld getld() {
+return this.id;
+}
+public void setld(UserFriendld id){
+this.id = id;
+}
+public String getName() {
+return this.name;
+}
+public void setName(String name){
+this.name = name;
+}
+public String getAddress() {
+return this.address;
+}
+public void setAddress(String address){
+this.address = address;
+}
+public String getPhone() {
+return this.phone;
+}
+public void setPhone(String phone){
+this.phone = phone;
+}
+}
+public class UserFriendld implements java.io.Serializable {
+private Integer id;
+private String user;public UserFriendld() {
+}
+public UserFriendld(Integer id,String user){
+this.id = id;
+this.user = user;
+}
+public Integer getld() {
+return this.id;
+}
+public void setld(Integer id) {
+this.id = id;
+}
+public String getUser() {
+return this.user;
+}
+public void setUser(String user){
+this.user = user;
+}
+public boolean equals(Object other) {
+if ((this == other))
+return true;
+if ((other == null))
+return false;
+if (!(other instanceof UserFriendld))
+return false;
+UserFriendld castOther = (UserFriendld) other;
+return ((this.getld() == castOther.getld())ll (this.getld() != null
+&&castOther.getld() != null &&this.getld().equals(castOther.getld())
+&&((this.getUser() == castOther.getUser()) ll (this.getUser() != null
+&&castOther.getUser() != null &&this.getUser().equals(castOther.getUser())));
+}
+public int hashCode(){
+int result = 17;
+result = 37 *result + (getld() == null ? o : this.getld().hashCode());result = 37*result
++ (getUser() == null ? o : this.getUser().hashCode());
+return result;
+}
+}
+(5) User.hbm.xml，用于数据库中的表User和定义的属性相对应，代码如下:
+<?xml version="1.0" encoding="utf-8"?>
+<IDOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN""http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+<class name="org.model.User" table="User" catalog="structure_study">
+<id name="username" type="java.lang.String">
+<column name="username" length="20"/>generator class="assigned"/>
+</id>
+<property name="password" type="java.lang.String">
+<column name="password" length="20"/></property>
+</class>
+</hibernate-mapping>
+(6)UserFriend.hbm.xml用于数据库中的表UserFriend和定义的属性相对应，代码如下:
+<?xml version="1.o" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC"-//Hibernate/Hibernate Mapping DTD 3.0//EN""http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+<class name="org.model.UserFriend" table="UserFriend" catalog="structure_study">
+<composite-id name="id" class="org.model.UserFriendld">
+<key-property name="id" type="java.lang.Integer">
+<column name="id" />
+</key-property>
+<key-property name="user" type="java.lang.String">
+<column name="user" length="45"/>
+</key-property>
+</composite-id>
+<property name="name" type="java.lang.String">
+<column name="name" length="45"/>
+</property>
+property name="address" type="java.lang.String">
+<column name="address" length="45"/></property>
+<property name="phone" type="java.lang.String">
+<column name="phone" length="45”/></property>
+</class>
+</hibernate-mapping>

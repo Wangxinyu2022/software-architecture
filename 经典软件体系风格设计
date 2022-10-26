@@ -1,0 +1,98 @@
+package Main;
+
+import GUI.GUIDemo;
+import OUT.*;
+import t1.demo1;
+import t2.Main;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+
+public class MMM {
+    public static void main(String[] args) throws IOException {
+        Scanner in = new Scanner(System.in);
+        File f=new File("D:\\软件质量测试\\src\\input.txt");//新建一个文件对象，如果不存在则创建一个该文件
+        FileWriter fw;
+        try {
+            fw=new FileWriter(f);
+            System.out.println("请输入一串序列");
+            String str=in.nextLine();
+            fw.write(str);//将字符串写入到指定的路径下的文件中
+            fw.close();
+        } catch (IOException e) { e.printStackTrace(); }
+        System.out.println("数据导入成功,请选择你需要使用的方法：");
+        System.out.println("-------1、主程序-子程序软件体系结构");
+        System.out.println("-------2、面向对象软件体系结构");
+        System.out.println("-------3、事件系统软件体系结构");
+        System.out.println("-------4、管道-过滤软件体系结构");
+        int  a = in.nextInt();
+        output output = new output();
+        GUIDemo guiDemo = new GUIDemo();
+        if(a==1){
+            demo1 demo = new demo1();
+            demo.main(args);
+           String str = "\n主程序 - 子程序 风格：\n" +
+                   "主程序-子程序风格是结构化程序设计的一种典型风格，从功能的观点设计系统，通过逐步分解和细化，形成整个系统的体系结构。";
+           output.writeToTXT(str);
+            guiDemo.main(args);
+        }else if(a==2){
+            Main main = new Main();
+            main.main(args);
+            String str = "\n面向对象 风格：\n" +
+                    "与前面的主程序 - 子程序风格比，面向对象风格中的构件变成了对象（不同于主程序、子程序的概念），并且连接的方式也发生了相应的变化。\n" +
+                    "\n" +
+                    "系统被看作是对象的集合，每个对象都有一个它自己的功能集合；\n" +
+                    "• 数据及作用在数据上的操作被封装成抽象数据类型；\n" +
+                    "\n" +
+                    "• 只通过接口与外界交互，内部的设计决策则被封装起来。";
+            output.writeToTXT(str);
+            guiDemo.main(args);
+        }else if(a==3){
+            t3.Main main = new t3.Main();
+            main.main(args);
+            String str = "\n事件驱动 体系结构风格：\n" +
+                    "\n" +
+                    "惯用模式：\n" +
+                    "\n" +
+                    "事件驱动就是在当前系统的基础之上，根据事件声明和发展状况来驱动整个应用程序运行。\n" +
+                    "\n" +
+                    "事件驱动体系结构的基本思想是：系统对外部的行为表现可以通过它对事件的处理来实现。在这种体系结构中，构件不再直接调用过程，而是声明事件。系统其他构件的过程可以在这些事件中进行注册。当触发一个事件的时候，系统会自动调用这个事件中注册的所有过程。因此，触发一个事件会引起其他构件的过程调用。\n" +
+                    "\n" +
+                    "原理图：";
+            output.writeToTXT(str);
+            guiDemo.main(args);
+
+        }else if(a==4){
+            t4.Main main = new t4.Main();
+            main.main(args);
+            String str = "\n管道-过滤器风格：\n" +
+                    "管道-过滤器风格把系统任务分成若干连续的处理步骤，这些步骤由通过系统的数据流连接，一个步骤的输出是下一个步骤的输入。\n" +
+                    "\n" +
+                    "管道-过滤器风格并没有讨论构件本身特质的不同（与主程序-子程序风格相比），而是限制了各个构件的连接方式，一个步骤的输出是下一个步骤的输入。\n" +
+                    "\n" +
+                    "在管道/过滤器风格的软件体系结构中，每个构件都有一组输入和输出，构件读输入的数据流，经过内部处理，然后产生输出数据流。这个过程通常通过对输入流的变换及增量计算来完成，所以在输入被完全消费之前，输出便产生了。因此，这里的构件被称为过滤器，这种风格的连接件就象是数据流传输的管道，将一个过滤器的输出传到另一过滤器的输入。此风格特别重要的过滤器必须是独立的实体，它不能与其它的过滤器共享数据，而且一个过滤器不知道它上游和下游的标识。一个管道/过滤器网络输出的正确性并不依赖于过滤器进行增量计算过程的顺序。（摘自：【百度百科】软件体系结构）\n" +
+                    "\n" +
+                    "管道/过滤器风格的特点：（摘自：【百度百科】软件体系结构）\n" +
+                    "\n" +
+                    "（1）使得软构件具有良好的隐蔽性和高内聚、低耦合的特点；\n" +
+                    "\n" +
+                    "（2）允许设计者将整个系统的输入/输出行为看成是多个过滤器的行为的简单合成；\n" +
+                    "\n" +
+                    "（3）支持软件重用。重要提供适合在两个过滤器之间传送的数据，任何两个过滤器都可被连接起来；\n" +
+                    "\n" +
+                    "（4）系统维护和增强系统性能简单。新的过滤器可以添加到现有系统中来；旧的可以被改进的过滤器替换掉；\n" +
+                    "\n" +
+                    "（5）允许对一些如吞吐量、死锁等属性的分析；\n" +
+                    "\n" +
+                    "（6）支持并行执行。每个过滤器是作为一个单独的任务完成，因此可与其它任务并行执行。";
+            output.writeToTXT(str);
+            guiDemo.main(args);
+
+        }else {
+            System.out.println("无效输入");
+        }
+    }
+}
